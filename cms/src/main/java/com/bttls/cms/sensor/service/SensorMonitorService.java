@@ -1,6 +1,6 @@
 package com.bttls.cms.sensor.service;
 
-import com.bttls.cms.sensor.Measurement;
+import com.bttls.cms.sensor.model.Measurement;
 
 public interface SensorMonitorService {
 

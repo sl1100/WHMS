@@ -4,15 +4,13 @@ import org.springframework.kafka.core.KafkaTemplate;
 
 public class AbstractMessagePublisher<T> {
 
-	private final KafkaTemplate<String, Object> kafkaTemplate;
-	private final String topic;
+	protected final KafkaTemplate<String, Object> kafkaTemplate;
 
-	public AbstractMessagePublisher(KafkaTemplate<String, Object> kafkaTemplate, String topic) {
+	public AbstractMessagePublisher(KafkaTemplate<String, Object> kafkaTemplate) {
 		this.kafkaTemplate = kafkaTemplate;
-		this.topic = topic;
 	}
 
-	public void sendMessage(T measurement) {
-		kafkaTemplate.send(topic, measurement);
+	public void sendMessage(String topic, T message) {
+		kafkaTemplate.send(topic, message);
 	}
 }

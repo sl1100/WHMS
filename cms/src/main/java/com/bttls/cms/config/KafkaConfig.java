@@ -1,6 +1,6 @@
 package com.bttls.cms.config;
 
-import com.bttls.cms.sensor.Measurement;
+import com.bttls.cms.sensor.model.Measurement;
 import com.bttls.config.AbstractKafkaConfigFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

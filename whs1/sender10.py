@@ -1,12 +1,4 @@
 import socket
-# "t1", 30
-# "t2", 20
-# "t3", 30
-# "h1", 50
-# "t4", 30
-# "t5", 30
-# "t6", 30
-# "h2", 60
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 sock.sendto(b"sensor_id=t1; value=30", ("127.0.0.1", 3344))

@@ -1,4 +1,17 @@
 package com.bttls.cms.sensor.model;
 
-public record Warehouse(String id, boolean enabled) {
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode
+@AllArgsConstructor
+public class Warehouse {
+	private String id;
+	boolean enabled;
 }

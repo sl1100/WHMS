@@ -1,5 +1,6 @@
 package com.bttls.cms.sensor;
 
+import com.bttls.cms.sensor.model.Measurement;
 import com.bttls.cms.sensor.service.SensorMonitorService;
 import com.bttls.kafka.AbstractKafkaConsumer;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +17,7 @@ public class SensorMeasurementConsumer extends AbstractKafkaConsumer<Measurement
 	private final SensorMonitorService sensorMonitorService;
 
 	@KafkaListener(
-		topics = { "${com.bttls.kafka.topics.sensor.temperature}", "${com.bttls.kafka.topics.sensor.humidity}" },
+		topics = { "${com.bttls.cms.kafka.sensor.monitor.temperature.topic}", "${com.bttls.cms.kafka.sensor.monitor.humidity.topic}" },
 		groupId = "${spring.kafka.consumer.group-id}"
 	)
 	@Override

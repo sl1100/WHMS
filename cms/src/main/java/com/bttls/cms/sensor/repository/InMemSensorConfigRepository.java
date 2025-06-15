@@ -25,7 +25,7 @@ class InMemSensorConfigRepository implements SensorConfigRepository {
 
 	public InMemSensorConfigRepository() {
 		sensors.putAll(createSensors().stream().collect(Collectors.toMap(Sensor::sensorId, identity())));
-		warehouses.putAll(createWarehouses().stream().collect(Collectors.toMap(Warehouse::id, identity())));
+		warehouses.putAll(createWarehouses().stream().collect(Collectors.toMap(Warehouse::getId, identity())));
 		sensorConfigList.addAll(createSensorConfigs());
 	}
 
@@ -35,6 +35,16 @@ class InMemSensorConfigRepository implements SensorConfigRepository {
 			.filter(sensorConfig -> Objects.equals(sensorConfig.sensor().sensorId(), sensorId))
 			.findFirst();
 	}
+
+/*	@Override
+	public void enableWarehouses(List<String> warehouseIds) {
+		warehouses.values().forEach(warehouse -> warehouse.setEnabled(warehouseIds.contains(warehouse.getId())));
+	}
+
+	@Override
+	public List<String> getWarehouseIds() {
+		return warehouses.values().stream().filter(Warehouse::isEnabled).map(Warehouse::getId).toList();
+	}*/
 
 	private List<Sensor> createSensors() {
 		return List.of(

@@ -1,4 +1,4 @@
-package com.bttls.cms.config;
+package com.bttls.cms.kafka;
 
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +11,9 @@ import org.springframework.kafka.core.KafkaAdmin;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Set;
+import java.util.concurrent.ExecutionException;
+import java.util.stream.Stream;
 
 @Log4j2
 @RequiredArgsConstructor
@@ -19,14 +22,13 @@ public class KafkaTopicCreator {
 
 	private final KafkaAdmin kafkaAdmin;
 	private final KafkaTopicProperties topicProperties;
+	//private final SensorConfigRepository sensorConfigRepository;
 
 	@PostConstruct
 	public void createTopics() {
 		try (AdminClient adminClient = AdminClient.create(kafkaAdmin.getConfigurationProperties())) {
-			var existingTopics = adminClient.listTopics().names().get();
-			var missingTopics = topicProperties.getTopicNames().stream()
-				.filter(topic -> !existingTopics.contains(topic))
-				.toList();
+			var existingTopics = getExistingTopics(adminClient);
+			var missingTopics = Stream.concat(getMissingConfiguredTopics(existingTopics), getDynamicTopics()).toList();
 
 			if (!missingTopics.isEmpty()) {
 				List<NewTopic> newTopics = missingTopics.stream()
@@ -43,6 +45,21 @@ public class KafkaTopicCreator {
 		} catch (Exception e) {
 			log.error("Topic creation failed:" + e.getCause().getMessage(), e);
 		}
+	}
+
+	private Set<String> getExistingTopics(AdminClient adminClient) throws ExecutionException, InterruptedException {
+		return adminClient.listTopics().names().get();
+	}
+
+	private Stream<String> getMissingConfiguredTopics(Set<String> existingTopics) {
+		return topicProperties.getTopicNames().stream()
+			.filter(topic -> !existingTopics.contains(topic));
+	}
+
+	private Stream<String> getDynamicTopics() {
+		//sensorConfigRepository.enableWarehouses(topicProperties.getServices());
+		//var warehouseIds = sensorConfigRepository.getWarehouseIds();
+		return topicProperties.getServices().stream().map(topicProperties::getAlarmTopic);
 	}
 
 }

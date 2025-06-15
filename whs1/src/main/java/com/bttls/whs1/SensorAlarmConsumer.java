@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 public class SensorAlarmConsumer extends AbstractKafkaConsumer<NotificationMessage> {
 
 	@KafkaListener(
-		topics = "${com.bttls.whs1.topics.alarm.threshold}",
+		topics = "${com.bttls.whs1.kafka.sensor.alarm.threshold.topic}",
 		groupId = "${spring.kafka.consumer.group-id}"
 	)
 	@Override

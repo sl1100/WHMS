@@ -4,5 +4,5 @@ import com.bttls.cms.sensor.model.AlarmMessage;
 
 public interface ThresholdAlertService {
 
-	void raiseAlarm(AlarmMessage alarmMessage);
+	void raiseAlarm(String warehouseId, AlarmMessage alarmMessage);
 }
