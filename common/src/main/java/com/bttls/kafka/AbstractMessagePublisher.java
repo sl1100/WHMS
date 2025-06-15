@@ -1,4 +1,4 @@
-package com.bttls.cms.common;
+package com.bttls.kafka;
 
 import org.springframework.kafka.core.KafkaTemplate;
 

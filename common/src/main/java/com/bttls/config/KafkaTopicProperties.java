@@ -1,9 +1,8 @@
-package com.bttls.cms.config;
+package com.bttls.config;
 
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,8 +11,7 @@ import java.util.Map;
 
 @Getter
 @Setter
-@Component
-@ConfigurationProperties(prefix = "com.bttls.cms")
+@ConfigurationProperties(prefix = "com.bttls.kafka")
 public class KafkaTopicProperties {
 	private Map<String, String> topics = new HashMap<>();
 

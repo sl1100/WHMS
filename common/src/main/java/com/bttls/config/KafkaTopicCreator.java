@@ -1,4 +1,4 @@
-package com.bttls.cms.config;
+package com.bttls.config;
 
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;

@@ -24,6 +24,8 @@ repositories {
 }
 
 dependencies {
+    implementation(project(":common"))
+
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springframework.boot:spring-boot-starter-webflux")
     implementation("org.apache.kafka:kafka-streams")
