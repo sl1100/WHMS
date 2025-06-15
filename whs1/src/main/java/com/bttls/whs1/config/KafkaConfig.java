@@ -1,7 +1,6 @@
-package com.bttls.cms.config;
+package com.bttls.whs1.config;
 
-import com.bttls.cms.sensor.Measurement;
-import org.apache.kafka.clients.admin.AdminClientConfig;
+import com.bttls.whs1.NotificationMessage;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
@@ -13,7 +12,6 @@ import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
-import org.springframework.kafka.core.KafkaAdmin;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
@@ -25,28 +23,22 @@ import java.util.Map;
 @Configuration
 public class KafkaConfig {
 
-	@Value("${spring.kafka.bootstrap-servers}")
-	private String bootstrapServers;
 	@Value("${spring.kafka.consumer.group-id}")
 	private String groupId;
 
-	@Bean
-	public KafkaAdmin kafkaAdmin() {
-		Map<String, Object> configs = new HashMap<>();
-		configs.put(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
-		return new KafkaAdmin(configs);
-	}
+	@Value("${spring.kafka.bootstrap-servers}")
+	private String bootstrapServers;
 
 	@Bean
-	public ConcurrentKafkaListenerContainerFactory<String, Measurement> kafkaListenerContainerFactory() {
-		ConcurrentKafkaListenerContainerFactory<String, Measurement> factory = new ConcurrentKafkaListenerContainerFactory<>();
+	public ConcurrentKafkaListenerContainerFactory<String, NotificationMessage> kafkaListenerContainerFactory() {
+		ConcurrentKafkaListenerContainerFactory<String, NotificationMessage> factory = new ConcurrentKafkaListenerContainerFactory<>();
 		factory.setConsumerFactory(consumerFactory());
 		return factory;
 	}
 
 	@Bean
-	public ConsumerFactory<String, Measurement> consumerFactory() {
-		JsonDeserializer<Measurement> deserializer = new JsonDeserializer<>(Measurement.class); //
+	public ConsumerFactory<String, NotificationMessage> consumerFactory() {
+		JsonDeserializer<NotificationMessage> deserializer = new JsonDeserializer<>(NotificationMessage.class);
 		deserializer.addTrustedPackages("*");
 		deserializer.setRemoveTypeHeaders(true);
 		deserializer.setUseTypeHeaders(false);
