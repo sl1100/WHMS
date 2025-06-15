@@ -11,6 +11,7 @@ import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
+import org.springframework.kafka.listener.ContainerProperties;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
 import org.springframework.kafka.support.serializer.JsonSerializer;
 
@@ -24,6 +25,7 @@ public abstract class AbstractKafkaConfigFactory {
 	public <T> ConcurrentKafkaListenerContainerFactory<String, T> createKafkaListenerContainerFactory(ConsumerFactory<String, T> consumerFactory) {
 		ConcurrentKafkaListenerContainerFactory<String, T> factory = new ConcurrentKafkaListenerContainerFactory<>();
 		factory.setConsumerFactory(consumerFactory);
+		factory.getContainerProperties().setAckMode(ContainerProperties.AckMode.MANUAL);
 		return factory;
 	}
 
@@ -38,7 +40,8 @@ public abstract class AbstractKafkaConfigFactory {
 			ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers,
 			ConsumerConfig.GROUP_ID_CONFIG, groupId,
 			ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class,
-			ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
+			ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class,
+			ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, false);
 		return new DefaultKafkaConsumerFactory<>(configProps, new StringDeserializer(), deserializer);
 	}
 
