@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 public class SensorAlarmPublisher extends AbstractMessagePublisher<AlarmMessage> {
 
 	public SensorAlarmPublisher(KafkaTemplate<String, Object> kafkaTemplate,
-								@Value("${com.bttls.cms.topics.alarm.threshold}") String topic) {
+								@Value("${com.bttls.kafka.topics.alarm.threshold}") String topic) {
 		super(kafkaTemplate, topic);
 	}
 }

@@ -16,7 +16,7 @@ public class SensorMeasurementConsumer extends AbstractKafkaConsumer<Measurement
 	private final SensorMonitorService sensorMonitorService;
 
 	@KafkaListener(
-		topics = { "${com.bttls.cms.topics.sensor.temperature}", "${com.bttls.cms.topics.sensor.humidity}" },
+		topics = { "${com.bttls.kafka.topics.sensor.temperature}", "${com.bttls.kafka.topics.sensor.humidity}" },
 		groupId = "${spring.kafka.consumer.group-id}"
 	)
 	@Override
