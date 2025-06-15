@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 @Component
 public class MessageParser {
 
-	public static final String MEASUREMENT_PATTERN = "sensor_id=(.*?); value=([\\d.]+)";
+	public static final String MEASUREMENT_PATTERN = "sensor_id=(.+?); value=([\\d.]+)";
 
 	public Measurement parse(String message) {
 		var pattern = Pattern.compile(MEASUREMENT_PATTERN);

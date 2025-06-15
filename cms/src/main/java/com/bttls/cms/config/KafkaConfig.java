@@ -1,77 +1,27 @@
 package com.bttls.cms.config;
 
 import com.bttls.cms.sensor.Measurement;
-import org.apache.kafka.clients.admin.AdminClientConfig;
-import org.apache.kafka.clients.consumer.ConsumerConfig;
-import org.apache.kafka.clients.producer.ProducerConfig;
-import org.apache.kafka.common.serialization.StringDeserializer;
-import org.apache.kafka.common.serialization.StringSerializer;
+import com.bttls.config.AbstractKafkaConfigFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.core.ConsumerFactory;
-import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
-import org.springframework.kafka.core.DefaultKafkaProducerFactory;
-import org.springframework.kafka.core.KafkaAdmin;
-import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.kafka.core.ProducerFactory;
-import org.springframework.kafka.support.serializer.JsonDeserializer;
-import org.springframework.kafka.support.serializer.JsonSerializer;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @Configuration
-public class KafkaConfig {
+public class KafkaConfig extends AbstractKafkaConfigFactory {
 
-	@Value("${spring.kafka.bootstrap-servers}")
-	private String bootstrapServers;
 	@Value("${spring.kafka.consumer.group-id}")
 	private String groupId;
 
 	@Bean
-	public KafkaAdmin kafkaAdmin() {
-		Map<String, Object> configs = new HashMap<>();
-		configs.put(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
-		return new KafkaAdmin(configs);
-	}
-
-	@Bean
 	public ConcurrentKafkaListenerContainerFactory<String, Measurement> kafkaListenerContainerFactory() {
-		ConcurrentKafkaListenerContainerFactory<String, Measurement> factory = new ConcurrentKafkaListenerContainerFactory<>();
-		factory.setConsumerFactory(consumerFactory());
-		return factory;
+		return createKafkaListenerContainerFactory(consumerFactory());
 	}
 
 	@Bean
 	public ConsumerFactory<String, Measurement> consumerFactory() {
-		JsonDeserializer<Measurement> deserializer = new JsonDeserializer<>(Measurement.class); //
-		deserializer.addTrustedPackages("*");
-		deserializer.setRemoveTypeHeaders(true);
-		deserializer.setUseTypeHeaders(false);
-		deserializer.setUseTypeMapperForKey(false);
-
-		Map<String, Object> configProps = new HashMap<>();
-		configProps.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
-		configProps.put(ConsumerConfig.GROUP_ID_CONFIG, groupId);
-		configProps.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-		configProps.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
-		return new DefaultKafkaConsumerFactory<>(configProps, new StringDeserializer(), deserializer);
-	}
-
-	@Bean
-	public ProducerFactory<String, Object> producerFactory() {
-		Map<String, Object> configProps = new HashMap<>();
-		configProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
-		configProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-		configProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
-		return new DefaultKafkaProducerFactory<>(configProps);
-	}
-
-	@Bean
-	public KafkaTemplate<String, Object> kafkaTemplate() {
-		return new KafkaTemplate<>(producerFactory());
+		return createConsumerFactory(groupId, Measurement.class);
 	}
 
 }
