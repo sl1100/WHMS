@@ -10,7 +10,7 @@ import org.springframework.messaging.MessageChannel;
 @Configuration
 public class UDPConfig {
 
-	@Value("${whs.udp.port}")
+	@Value("${com.bttls.whs1.udp.port}")
 	private int udpPort;
 
 	@Bean
