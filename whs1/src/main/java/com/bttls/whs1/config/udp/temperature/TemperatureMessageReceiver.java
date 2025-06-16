@@ -1,14 +1,14 @@
-package com.bttls.whs1.sensor.temperature.udp;
+package com.bttls.whs1.config.udp.temperature;
 
-import com.bttls.whs1.adapter.TemperatureKafkaPublisher;
-import com.bttls.whs1.sensor.message.Measurement;
+import com.bttls.whs1.sensor.TemperatureKafkaPublisher;
+import com.bttls.whs1.sensor.model.Measurement;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.messaging.Message;
 import org.springframework.stereotype.Component;
 
-import static com.bttls.whs1.sensor.temperature.udp.TemperatureSensorUdpConfig.INBOUND_TEMPERATURE_MSM_CHANNEL;
+import static com.bttls.whs1.config.udp.temperature.TemperatureSensorUdpConfig.INBOUND_TEMPERATURE_MSM_CHANNEL;
 
 @RequiredArgsConstructor
 @Log4j2

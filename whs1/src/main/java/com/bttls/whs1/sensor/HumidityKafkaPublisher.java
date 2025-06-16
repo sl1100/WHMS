@@ -1,7 +1,7 @@
-package com.bttls.whs1.adapter;
+package com.bttls.whs1.sensor;
 
 import com.bttls.kafka.AbstractTopicMessagePublisher;
-import com.bttls.whs1.sensor.message.Measurement;
+import com.bttls.whs1.sensor.model.Measurement;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;

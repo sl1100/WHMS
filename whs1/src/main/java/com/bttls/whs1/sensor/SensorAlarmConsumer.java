@@ -1,6 +1,7 @@
-package com.bttls.whs1;
+package com.bttls.whs1.sensor;
 
 import com.bttls.kafka.AbstractKafkaConsumer;
+import com.bttls.whs1.sensor.model.NotificationMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.kafka.annotation.KafkaListener;

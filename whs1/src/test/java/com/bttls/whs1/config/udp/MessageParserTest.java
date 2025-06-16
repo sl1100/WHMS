@@ -1,5 +1,7 @@
-package com.bttls.whs1.sensor.message;
+package com.bttls.whs1.config.udp;
 
+import com.bttls.whs1.sensor.model.Measurement;
+import com.bttls.whs1.config.udp.MessageParser;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

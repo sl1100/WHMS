@@ -1,13 +1,13 @@
-package com.bttls.whs1.sensor.temperature.udp;
+package com.bttls.whs1.config.udp.temperature;
 
-import com.bttls.whs1.sensor.message.Measurement;
-import com.bttls.whs1.sensor.message.MessageParser;
+import com.bttls.whs1.sensor.model.Measurement;
+import com.bttls.whs1.config.udp.MessageParser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.integration.annotation.Transformer;
 import org.springframework.stereotype.Component;
 
-import static com.bttls.whs1.sensor.temperature.udp.TemperatureSensorUdpConfig.INBOUND_TEMPERATURE_CHANNEL;
-import static com.bttls.whs1.sensor.temperature.udp.TemperatureSensorUdpConfig.INBOUND_TEMPERATURE_MSM_CHANNEL;
+import static com.bttls.whs1.config.udp.temperature.TemperatureSensorUdpConfig.INBOUND_TEMPERATURE_CHANNEL;
+import static com.bttls.whs1.config.udp.temperature.TemperatureSensorUdpConfig.INBOUND_TEMPERATURE_MSM_CHANNEL;
 
 @RequiredArgsConstructor
 @Component

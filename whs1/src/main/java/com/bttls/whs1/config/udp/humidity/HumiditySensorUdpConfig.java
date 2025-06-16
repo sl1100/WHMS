@@ -1,4 +1,4 @@
-package com.bttls.whs1.sensor.humidity.udp;
+package com.bttls.whs1.config.udp.humidity;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

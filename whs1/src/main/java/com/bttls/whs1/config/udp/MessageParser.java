@@ -1,5 +1,6 @@
-package com.bttls.whs1.sensor.message;
+package com.bttls.whs1.config.udp;
 
+import com.bttls.whs1.sensor.model.Measurement;
 import org.springframework.stereotype.Component;
 
 import java.util.regex.Pattern;
