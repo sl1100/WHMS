@@ -22,7 +22,6 @@ public class KafkaTopicCreator {
 
 	private final KafkaAdmin kafkaAdmin;
 	private final KafkaTopicProperties topicProperties;
-	//private final SensorConfigRepository sensorConfigRepository;
 
 	@PostConstruct
 	public void createTopics() {
@@ -57,8 +56,6 @@ public class KafkaTopicCreator {
 	}
 
 	private Stream<String> getDynamicTopics() {
-		//sensorConfigRepository.enableWarehouses(topicProperties.getServices());
-		//var warehouseIds = sensorConfigRepository.getWarehouseIds();
 		return topicProperties.getServices().stream().map(topicProperties::getAlarmTopic);
 	}
 

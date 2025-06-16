@@ -36,16 +36,6 @@ class InMemSensorConfigRepository implements SensorConfigRepository {
 			.findFirst();
 	}
 
-/*	@Override
-	public void enableWarehouses(List<String> warehouseIds) {
-		warehouses.values().forEach(warehouse -> warehouse.setEnabled(warehouseIds.contains(warehouse.getId())));
-	}
-
-	@Override
-	public List<String> getWarehouseIds() {
-		return warehouses.values().stream().filter(Warehouse::isEnabled).map(Warehouse::getId).toList();
-	}*/
-
 	private List<Sensor> createSensors() {
 		return List.of(
 			new Sensor("t1", SensorType.TEMPERATURE),
